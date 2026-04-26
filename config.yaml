@@ -1,0 +1,57 @@
+data:
+  raw_dir: data/raw
+  processed_dir: data/processed
+  external_dir: data/external
+  n_customers: 5000
+  n_loans: 8000
+  n_transactions: 50000
+  random_seed: 42
+
+model:
+  test_size: 0.2
+  random_state: 42
+  cv_folds: 5
+  logistic:
+    C: 1.0
+    max_iter: 1000
+    class_weight: balanced
+  xgboost:
+    n_estimators: 300
+    max_depth: 6
+    learning_rate: 0.05
+    subsample: 0.8
+    colsample_bytree: 0.8
+    scale_pos_weight: 3
+    use_label_encoder: false
+    eval_metric: auc
+  ensemble:
+    weights: [0.3, 0.7]
+
+segmentation:
+  kmeans:
+    n_clusters: 4
+    random_state: 42
+    max_iter: 300
+  rfm:
+    recency_bins: 4
+    frequency_bins: 4
+    monetary_bins: 4
+
+dashboard:
+  host: "0.0.0.0"
+  port: 8050
+  debug: false
+  theme: DARKLY
+
+credit_score:
+  excellent: [750, 900]
+  good: [650, 749]
+  fair: [550, 649]
+  poor: [300, 549]
+
+rbi:
+  npa_dpd_threshold: 90
+  standard_provision: 0.0025
+  sub_standard_provision: 0.15
+  doubtful_provision: 0.25
+  loss_provision: 1.0
